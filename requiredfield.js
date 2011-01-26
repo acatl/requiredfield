@@ -73,6 +73,10 @@ $.widget("ui.requiredfield", {
 	},
 
 	_validate : function() {
+		return this.isValid();
+	},
+
+	isValid : function() {
 		var value = this.element.val();
 
 		var valid = true;
