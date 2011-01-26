@@ -51,11 +51,7 @@ $.widget("ui.requiredfield", {
 	},
 
 	_updateValidation : function() {
-		var valid = true;
-		if (this.options.isRequired) {
-			valid = this._validate();
-		}
-		this.element.toggleClass(this.options.requiredClass, !valid);
+		this.validate();
 	},
 
 	_updateWatermark : function() {
@@ -72,8 +68,12 @@ $.widget("ui.requiredfield", {
 		this.element.toggleClass(this.options.watermarkClass, watermarkIt);
 	},
 
-	_validate : function() {
-		return this.isValid();
+	validate : function() {
+		var valid = true;
+		if (this.options.isRequired) {
+			valid = this.isValid();
+		}
+		this.element.toggleClass(this.options.requiredClass, !valid);
 	},
 
 	isValid : function() {
