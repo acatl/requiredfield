@@ -15,7 +15,8 @@ $.widget("ui.requiredfield", {
 		watermarkClass : "watermark",
 		functionValidate : null,
 		dataType : "string",
-		liveCheck : false
+		liveCheck : false,
+		leaveWatermark:false
 	},
 
 	_create : function() {
@@ -35,15 +36,18 @@ $.widget("ui.requiredfield", {
 	_focusHandler : function(e) {
 		var value = this.element.val();
 		var watermarkIt = false;
-		if (value == this.options.watermarkText) {
+		if (value == this.options.watermarkText && !this.options.leaveWatermark) {
 			this.element.val("");
 		}
 		this.element.toggleClass(this.options.watermarkClass, false);
+		
+		if ( this.options.leaveWatermark ) {
+		}
 	},
 
 	_blurHandler : function(e) {
-		this._updateValidation();
 		this._updateWatermark();
+		this._updateValidation();
 	},
 
 	_keyupHandler : function(e) {
@@ -94,7 +98,7 @@ $.widget("ui.requiredfield", {
 					break;
 				case "string":
 				default:
-					dataTypeValid = jQuery.type(val) == this.options.dataType;
+					dataTypeValid = jQuery.type(value) == this.options.dataType;
 					break;
 			}
 
