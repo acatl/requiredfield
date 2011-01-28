@@ -35,7 +35,6 @@ $.widget("ui.requiredfield", {
 
 	_focusHandler : function(e) {
 		var value = this.element.val();
-		var watermarkIt = false;
 		if (value == this.options.watermarkText && !this.options.leaveWatermark) {
 			this.element.val("");
 		}
@@ -70,6 +69,16 @@ $.widget("ui.requiredfield", {
 			this.element.val(this.options.watermarkText);
 		}
 		this.element.toggleClass(this.options.watermarkClass, watermarkIt);
+	},
+	
+	refresh: function () {
+		if (arguments[0] == true) {
+			this.element.val("");
+		}
+		if (this.options.watermarkText != null) {
+			this._updateWatermark();
+		}
+		this.element.toggleClass(this.options.requiredClass, false);
 	},
 
 	validate : function() {
