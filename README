@@ -1,0 +1,94 @@
+RequiredField is a minimal field validation tool. It does not implement any css or add and elements to your HTML. All requiredfield does is perform validation checks on your fields leaving you free to use that validation information in any way you want.
+
+Styling validated/invalidated fields can be done by applying css to the "required" class. RequiredField adds the "required" class to any field that fails to validate.
+
+A "validation" event is also available for post-validation-processing such as field persistance.
+
+Basic Form Validation
+================================
+
+<html>
+	<form>
+		<input id="address" type="text"></input>
+		<submit/>
+	</form>
+
+	<script>
+		$(function() {
+			$("#address").requiredfield();
+		});
+	</script>
+	
+	<style>
+		#address.required
+		{
+			color: red;
+		}
+	</style>
+</html>
+
+Advanced Validation
+================================
+
+Live validation
+---------------
+updates validation on each key stroke:
+
+$(this).requiredfield( {
+	liveCheck: true
+});
+
+
+Allowing blank fields
+---------------------
+Note that this only validates the empty field for live checks. If validate is called externally this will be invalidated if empty.
+
+$(this).requiredfield( {
+	liveCheck: true,
+	allowEmpty: true
+});
+
+
+Data types
+-------------------------
+So far we've only validated that the field contains a string. To do usefull validations required feild contains many pre-defined datatypes:
+
+- number
+- string
+- postal-code
+- phone-number
+- distance
+- email*
+
+* the email data type is not fool proof. Email validation regex is very complex and this one seems a bit over-simplified.
+
+
+The [CA], [US] and [UK] regional modifiers can be applied to some data types as well to further refine the field's validation:
+
+	postal-code[CA]
+
+These modifiers are available for postal-code and phone-number only.
+
+distance validations are similarly refined using the [IMPERIAL] modifier. A [METRIC] modifier was planned but not yet implemented.
+
+
+Data types can be applied to a required field like so:
+
+$(this).requiredfield( {
+	dataType : "distance[IMPERIAL]"
+});
+
+
+Validation Events and Methods
+=============================
+
+You can externally validate or get the valid status of a required feild using the vaildate and isValid methods respectively:
+
+$("#address").requiredfield("isValid") // returns true if valid
+$("#address").requiredfield("validate") // validates the field
+
+A validation event is also available:
+
+$("#address").bind("validation", function(event, isValid) {
+	alert("Address field updated. The address field is " + ( isValid? "not" : "" ) + "valid");
+});
