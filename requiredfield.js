@@ -16,7 +16,8 @@ $.widget("ui.requiredfield", {
 		functionValidate : null,
 		dataType : "string",
 		liveCheck : false,
-		leaveWatermark:false
+		leaveWatermark:false,
+		defaultIsInvalid:false
 	},
 
 	_create : function() {
@@ -95,6 +96,10 @@ $.widget("ui.requiredfield", {
 		var valid = true;
 
 		if (value == "") {
+			return false;
+		}
+		
+		if (this.options.defaultIsInvalid == true && value == this.options.watermarkText) {
 			return false;
 		}
 
