@@ -88,6 +88,8 @@ $.widget("ui.requiredfield", {
 			valid = this.isValid();
 		}
 		this.element.toggleClass(this.options.requiredClass, !valid);
+		
+		return valid;
 	},
 
 	isValid : function() {
