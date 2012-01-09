@@ -189,7 +189,7 @@ $.widget("ui.requiredfield", {
 					}
 					if (dataRegion[0] == "METRIC" || dataRegion[0] == "")
 					{
-						//todo
+						applyRule("([0-9.]*) *?[pnμmdkMG]?m"); // picometers to gigameters
 					}
 					break;
 
